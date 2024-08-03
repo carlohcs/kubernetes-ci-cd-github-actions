@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-cicd-deployment
+  labels:
+    app: node-cicd-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-cicd-deployment
+  template:
+    metadata:
+      labels:
+        app: node-cicd-deployment
+    spec:
+      containers:
+        - name: container-node-cicd-deployment
+          image: carlohcs/kubernetes-ci-cd-github-actions
+          ports:
+            - containerPort: 3000
