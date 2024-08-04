@@ -20,7 +20,7 @@ Get started today and take your CI/CD to the next level with Kubernetes and GitH
 
 ## Steps
 
-## On your cloned version of this repository
+### On your cloned version of this repository
 
 Change the data:
 
