@@ -50,6 +50,36 @@ In [k8s/node-deployment.yaml](k8s/node-deployment.yaml)
     - Within AWS Academy:
       - `AWS Details` > `AWS CLI` > `Show`
 
+### On Google
+
+#### Locally
+
+1. Ensure:
+
+  - you have `gcloud` installed: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install) or [https://cloud.google.com/sdk/docs/downloads-interactive](https://cloud.google.com/sdk/docs/downloads-interactive)
+  - you are logged in: `gcloud auth login`
+  - you are in a project: `gcloud config set project <PROJECT_ID>` eg.: `gcloud config set project thermal-micron-427901-e1`
+
+2. Create a GKE Cluster:
+
+```bash
+gcloud container clusters create $GKE_CLUSTER \
+	--project=$GKE_PROJECT \
+	--zone=$GKE_ZONE
+```
+
+eg.:
+
+```bash
+export GKE_CLUSTER=my-cluster; export GKE_PROJECT=thermal-micron-427901-e1; export GKE_ZONE=us-east1; gcloud container clusters create $GKE_CLUSTER --project=$GKE_PROJECT --zone=$GKE_ZONE --disk-type pd-standard --num-nodes=1 --machine-type=e2-micro --node-locations=us-east1-b
+```
+
+* `--num-nodes` reduce the number of nodes;  `---machine-type` define cpu resources;
+* `--node-locations` define number of available zones;
+* `--disk-type pd-standard` prevents the error about quota)
+
+3. Follow [https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-to-google-kubernetes-engine](https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-to-google-kubernetes-engine) until before `Creating the workflow` topic.
+
 ## On Docker Hub
 
 - Create a Personal Access Token - [https://app.docker.com/settings/personal-access-tokens/create](https://app.docker.com/settings/personal-access-tokens/create)
@@ -91,6 +121,10 @@ docker build . -t carlohcs/kubernetes-ci-cd-github-actions
 ```bash
 docker run -p 3000:3000 carlohcs/kubernetes-ci-cd-github-actions
 ```
+
+### GKE - Best zone
+
+[https://googlecloudplatform.github.io/region-picker/](https://googlecloudplatform.github.io/region-picker/)
 
 ---
 Enjoy!
