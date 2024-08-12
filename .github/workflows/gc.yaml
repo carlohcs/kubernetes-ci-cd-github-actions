@@ -109,7 +109,5 @@ jobs:
         # replacing the image name in the k8s template
         ./kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
         ./kustomize build k8s | kubectl apply -f -
-        # kubectl apply -f k8s/node-deployment.yaml --validate=false
-        # kubectl apply -f k8s/node-service.yaml --validate=false
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
