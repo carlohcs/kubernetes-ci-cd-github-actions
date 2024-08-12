@@ -78,10 +78,9 @@ jobs:
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
-        cluster_name: "projects/thermal-micron-427901-e1/locations/us-east1/clusters/my-cluster"
-        # cluster_name: ${{ env.GKE_CLUSTER }}
-        # location: ${{ env.GKE_GAR_LOCATION }}
-        # project_id: ${{ env.GKE_PROJECT }}
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GAR_LOCATION }}
+        project_id: ${{ env.PROJECT_ID }}
 
     # Build the Docker image
     - name: Build
