@@ -119,7 +119,8 @@ jobs:
         cd ./k8s
 
         # Replace the image name in the k8s template
-        ./kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
+        ./kustomize edit set image "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE::$GITHUB_SHA"
+        # ./kustomize edit set image "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:"
 
         # Build and apply the kustomization
         ./kustomize build | kubectl apply --validate=false -f -
