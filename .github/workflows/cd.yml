@@ -1,10 +1,13 @@
-name: Deploy to EKS
+name: Build and Deploy to EKS (Amazon)
 on:
   push:
     branches:
       - main
 jobs:
   deploy:
+    name: Setup, Build, Publish, and Deploy
+    # Should deploy?
+    if: ${{ vars.DEPLOY_TO_EKS == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
