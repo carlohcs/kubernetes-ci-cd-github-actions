@@ -104,10 +104,19 @@ jobs:
         chmod u+x ./kustomize
 
     # Deploy the Docker image to the GKE cluster
-    - name: Deploy
+    - name: Deploy to GKE
       run: |-
-        # replacing the image name in the k8s template
+        # Enter to the k8s directory (because kustomize cannot get the correct path)
+        cd ./k8s
+
+        # Replace the image name in the k8s template
         ./kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
-        ./kustomize build k8s | kubectl apply -f -
+
+        # Build and apply the kustomization
+        ./kustomize build | kubectl apply -f -
+
+        # Check the rollout status
         kubectl rollout status deployment/$DEPLOYMENT_NAME
+
+        # Get services information
         kubectl get services -o wide
