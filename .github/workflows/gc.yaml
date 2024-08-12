@@ -102,9 +102,13 @@ jobs:
       run: |-
         # Enter to the k8s directory (because kustomize cannot get the correct path)
         cd ./k8s
+
         # Download kustomize
         curl -sfLo ./kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
+
+        # Set the correct path to the kustomize binary (prevent the error: kustomize: command not found)
+        export PATH=$PATH:./k8s
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy to GKE
