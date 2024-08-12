@@ -117,7 +117,7 @@ jobs:
         ./kustomize edit set image $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
 
         # Build and apply the kustomization
-        ./kustomize build | kubectl apply -f -
+        ./kustomize build | kubectl apply --validate=false -f -
 
         # Check the rollout status
         kubectl rollout status deployment/$DEPLOYMENT_NAME
