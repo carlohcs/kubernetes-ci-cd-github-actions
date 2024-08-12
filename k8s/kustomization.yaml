@@ -7,4 +7,5 @@ resources:
 
 images:
   - name: carlohcs/kubernetes-ci-cd-github-actions
-    newTag: latest
+    newName: $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE
+    newTag: $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
