@@ -13,10 +13,10 @@
 # TUTORIAL: https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-to-google-kubernetes-engine
 
 name: Build and Deploy to GKE (Google)
-
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -68,7 +68,7 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
-        project_id: '${{ env.GKE_PROJECT }}'
+        project_id: '${{ env.PROJECT_ID }}'
 
     - name: Docker auth
       run: |-
@@ -78,6 +78,8 @@ jobs:
     - name: Set up GKE credentials
       uses: google-github-actions/get-gke-credentials@v0
       with:
+        # Or only uses the full cluster_name path
+        # cluster_name: "projects/{project-name}/locations/{location}/clusters/{cluster-name}"
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
         project_id: ${{ env.PROJECT_ID }}
